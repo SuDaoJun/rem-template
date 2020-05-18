@@ -1,0 +1,78 @@
+
+@mixin font-dpr($font-size) {
+  font-size: $font-size;
+  [data-dpr="2"] & {
+    font-size: $font-size * 2;
+  }
+  [data-dpr="3"] & {
+    font-size: $font-size * 3;
+  }
+}
+@mixin lang-width($zhWidth: 100%, $enWidth: 100%){
+  width: $zhWidth;
+  [data-lang='zh'] & {
+    width: $zhWidth;
+  }
+  [data-lang='en'] & { 
+    width: $enWidth;
+  }
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@mixin border-px($type: default, $color: #ebedf0, $radius: 0) {
+  position: relative;
+  &::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    @if $type == default {
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      border: 1PX solid $color;
+      border-radius: $radius;
+    } @else if $type == top {
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 1PX;
+      background: $color;
+    } @else if $type == bottom {
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 1PX;
+      background: $color;
+    } @else if $type == left {
+      top: 0;
+      left: 0;
+      width: 1PX;
+      height: 200%;
+      background: $color;
+    } @else if $type == right {
+      top: 0;
+      right: 0;
+      width: 1PX;
+      height: 200%;
+      background: $color;
+    }
+    transform: scale(0.5);
+    transform-origin: 0 0;
+  }
+}
+// 上边框另一种实现
+// .border-1px-top:before {
+//   content: "";
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   border-top: 1px solid red;
+//   transform: scaleY(.5);
+//   transform-origin: left top;
+// }
